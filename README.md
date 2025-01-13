@@ -99,16 +99,16 @@ You will be graded for:
 - The clarity and relevance of your reflection on the hyperparameters, models and hypotheses (40%)
 
 ## Checklist
-[ ] you have a system in place for logging your exploration process and you are reminded automatically to log hypotheses 
-[ ] you explored different models, hyperparameter ranges, layers, combinations, etc. 
-[ ] you have connected your practical ideas to the theory before the experiments: why might this work? 
-[ ] you have worked in an iterative process: hypothesis -> experiment -> reflection -> new hypothesis 
-[ ] after your results, you looked back at your hypotheses and refined them, when necessary 
-[ ] you have a clear overview of your top architectures in your report, such that someone can reproduce your model 
-[ ] you have a clear overview of the (most relevant) searchspace in your report 
-[ ] you have connected your results to your hypotheses in your reflection 
-[ ] you have a pdf of your report, that has the URL of the repo on the first page 
-[ ] you have used linters (isort, ruff, pyright/mypy) on your code 
-[ ] you have a private repo with a clear README that contains your name 
-[ ] you have invited raoulg to your repo 
+- [ ] you have a system in place for logging your exploration process and you are reminded automatically to log hypotheses 
+- [ ] you explored different models, hyperparameter ranges, layers, combinations, etc. 
+- [ ] you have connected your practical ideas to the theory before the experiments: why might this work? 
+- [ ] you have worked in an iterative process: hypothesis -> experiment -> reflection -> new hypothesis 
+- [ ] after your results, you looked back at your hypotheses and refined them, when necessary 
+- [ ] you have a clear overview of your top architectures in your report, such that someone can reproduce your model 
+- [ ] you have a clear overview of the (most relevant) searchspace in your report 
+- [ ] you have connected your results to your hypotheses in your reflection 
+- [ ] you have a pdf of your report, that has the URL of the repo on the first page 
+- [ ] you have used linters (isort, ruff, pyright/mypy) on your code 
+- [ ] you have a private repo with a clear README that contains your name 
+- [ ] you have invited raoulg to your repo 
 
