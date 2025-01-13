@@ -1,0 +1,35 @@
+pre-commit:
+  commands:
+    isort:
+      files: git ls-files
+      glob: '*.py'
+      run: isort {staged_files}
+    clean-jupyter:
+      files: git ls-files
+      glob: '*.ipynb'
+      run: jupyter nbconvert --clear-output --inplace {staged_files}
+      stage_fixed: true
+    ruff:
+      files: git ls-files
+      glob: '*.py'
+      run: ruff check {staged_files} --fix
+    mypy:
+      glob: '*.py'
+      run: mypy --pretty {staged_files} --ignore-missing-imports
+
+pre-merge:
+  commands:
+    isort:
+      files: git ls-files
+      glob: '*.py'
+      run: isort {staged_files}
+    ruff:
+      glob: '*.py'
+      run: ruff check {all_files} --fix
+    clean-jupyter:
+      glob: '*.ipynb'
+      run: jupyter nbconvert --clear-output --inplace {all_files}
+      stage_fixed: true
+    mypy:
+      glob: '*.py'
+      run: mypy --pretty {all_files} --ignore-missing-imports
