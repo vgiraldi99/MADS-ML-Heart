@@ -1,6 +1,35 @@
 # MADS-exam-25
 build with [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 
+```bash
+├── README.md
+├── data                            <- datafiles
+│   ├── heart_big_test.parq
+│   ├── heart_big_train.parq
+│   ├── heart_test.parq
+│   └── heart_train.parq
+├── dev                             <- demo hypertune files to start developping
+│   ├── Makefile
+│   ├── hypertune.py
+│   ├── minimal_ray.py
+├── notebooks                       <- notebooks to get you started
+│   ├── 01_explore-heart.ipynb
+│   ├── 02_2D-models.ipynb
+│   ├── 03_1D-models.ipynb
+│   ├── Makefile
+│   ├── config.toml
+│   ├── start_server.sh             <- scripts to make using mlflow easier
+│   └── stop_server.sh
+├── src                             <- src code
+│   ├── __init__.py
+│   ├── __pycache__
+│   ├── datasets.py
+│   ├── metrics.py
+│   └── models.py
+├── pyproject.toml                  <- dependencies
+└── uv.lock
+```
+
 ## how to set this up
 If you are on a VM, first check your available space with
 
