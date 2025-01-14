@@ -1,10 +1,11 @@
 # MADS-exam-25
 build with [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 
-## how to use this
+## how to set this up
 1. clone the repo
-2. change the remote url with `git remote set-url origin <your-repo-url>`
-3. use the pyproject.toml to install the dependencies. The file is compatible with both uv and rye.
+2. create your own private repo on github, copy your-repo-url
+3. in the cloned repo, change the remote url with `git remote set-url origin <your-repo-url>` such that you can push to your-repo-url
+4. use the pyproject.toml to install the dependencies. The file is compatible with both uv and rye.
 
 ## The case
 The junior datascientist at your work is pretty confident about his knowledge of all the models; He has helped you out by doing some data exploration for you, and he even created two models! You can find the models in `src/models.py`, but they are also in the notebooks themselves.
