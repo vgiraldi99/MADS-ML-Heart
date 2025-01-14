@@ -2,10 +2,32 @@
 build with [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 
 ## how to set this up
+If you are on a VM, first check your available space with
+
+```bash
+df -h
+```
+
+If you have less than 7GB of space, free up some space. Probably you need to remove a .venv.
+You can check size with
+
+```bash
+du -sh *
+```
+
+To pull the datafiles, you need to install [git-lfs](https://git-lfs.com), see link for other OS than linux:
+
+```bash
+sudo apt install git-lfs
+```
+
+
+If you have sufficient space, do this:
 1. clone the repo
-2. create your own private repo on github, copy your-repo-url
-3. in the cloned repo, change the remote url with `git remote set-url origin <your-repo-url>` such that you can push to your-repo-url
-4. use the pyproject.toml to install the dependencies. The file is compatible with both uv and rye.
+2. Run `git lfs pull` to get the datafiles
+3. create your own private repo on github, copy your-repo-url
+4. in the cloned repo, change the remote url with `git remote set-url origin <your-repo-url>` such that you can push to your-repo-url
+5. use the pyproject.toml to install the dependencies. The file is compatible with both uv and rye.
 
 ## The case
 The junior datascientist at your work is pretty confident about his knowledge of all the models; He has helped you out by doing some data exploration for you, and he even created two models! You can find the models in `src/models.py`, but they are also in the notebooks themselves.
@@ -70,6 +92,9 @@ Do some manual hypertuing to get a feel for the models and what might work, or w
 
 Because this is a medical dataset, an we are trying to spot disease, recall is more important than precision. Make sure you take this into account when you are creating and evaluating models! This means you might need to be creative about the preprocessing, or maybe combine approaches, etc.
 
+Be smart with the number of epochs. If you are doing manual tests, you can lower the amount of epochs.
+However, you will need some more training than just 1 epoch (which is equivalent with 5 epochs when trainsteps is set to one fifth of the full dataset), especially for the underrepresented classes. So try to set up experiments that can run unattended for a longer time without the need of your constant supervision.
+
 ## 2 Hypertune
 ### 2.1 Select
 Once you have some idea of what works, and what doesnt, you can make a selection of interesting directions.
@@ -100,16 +125,16 @@ You will be graded for:
 - The clarity and relevance of your reflection on the hyperparameters, models and hypotheses (40%)
 
 ## Checklist
-- [ ] you have a system in place for logging your exploration process and you are reminded automatically to log hypotheses 
-- [ ] you explored different models, hyperparameter ranges, layers, combinations, etc. 
-- [ ] you have connected your practical ideas to the theory before the experiments: why might this work? 
-- [ ] you have worked in an iterative process: hypothesis -> experiment -> reflection -> new hypothesis 
-- [ ] after your results, you looked back at your hypotheses and refined them, when necessary 
-- [ ] you have a clear overview of your top architectures in your report, such that someone can reproduce your model 
-- [ ] you have a clear overview of the (most relevant) searchspace in your report 
-- [ ] you have connected your results to your hypotheses in your reflection 
-- [ ] you have a pdf of your report, that has the URL of the repo on the first page 
-- [ ] you have used linters (isort, ruff, pyright/mypy) on your code 
-- [ ] you have a private repo with a clear README that contains your name 
-- [ ] you have invited raoulg to your repo 
+- [ ] you have a system in place for logging your exploration process and you are reminded automatically to log hypotheses
+- [ ] you explored different models, hyperparameter ranges, layers, combinations, etc.
+- [ ] you have connected your practical ideas to the theory before the experiments: why might this work?
+- [ ] you have worked in an iterative process: hypothesis -> experiment -> reflection -> new hypothesis
+- [ ] after your results, you looked back at your hypotheses and refined them, when necessary
+- [ ] you have a clear overview of your top architectures in your report, such that someone can reproduce your model
+- [ ] you have a clear overview of the (most relevant) searchspace in your report
+- [ ] you have connected your results to your hypotheses in your reflection
+- [ ] you have a pdf of your report, that has the URL of the repo on the first page
+- [ ] you have used linters (isort, ruff, pyright/mypy) on your code
+- [ ] you have a private repo with a clear README that contains your name
+- [ ] you have invited raoulg to your repo
 
