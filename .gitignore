@@ -8,5 +8,7 @@ __pycache__
 .lock
 *.egg-info
 **/logs
+**/mlruns
 *.db
+.notebookcache
 

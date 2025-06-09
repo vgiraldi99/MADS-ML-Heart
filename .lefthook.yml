@@ -1,5 +1,9 @@
 pre-commit:
   commands:
+    notebooktester:
+      priority: 1
+      glob: '*.ipynb'
+      run: notebooktester notebooks -v -t 240
     isort:
       files: git ls-files
       glob: '*.py'

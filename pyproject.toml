@@ -12,12 +12,12 @@ dependencies = [
     "torch-tb-profiler>=0.4.3",
     "tensorboard>=2.16.2",
     "mlflow>=2.13.2",
-    "mltrainer>=0.1.129",
     "hyperopt>=0.2.7",
     "torch>=2.5.1",
     "torchinfo>=1.8.0",
+    "mltrainer>=0.2.5",
 ]
-requires-python = ">=3.11,<3.12"
+requires-python = ">=3.12"
 readme = "README.md"
 license = {text = "MIT"}
 
@@ -26,15 +26,7 @@ dev = [
     "isort>=5.13.2",
     "jupyter>=1.1.1",
     "mypy>=1.14.1",
-    "pyright>=1.1.391",
-    "ruff>=0.9.1",
-]
-
-[tool.rye]
-managed = true
-dev-dependencies = [
-    "isort>=5.13.2",
-    "jupyter>=1.1.1",
+    "notebooktester>=0.2.1",
     "pyright>=1.1.391",
     "ruff>=0.9.1",
 ]
@@ -53,3 +45,4 @@ packages = ["src/"]
 name = "pytorch"
 url = "https://download.pytorch.org/whl/cpu"
 explicit = true
+
