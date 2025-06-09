@@ -5,12 +5,13 @@ import ray
 import torch
 from filelock import FileLock
 from loguru import logger
-from mltrainer import ReportTypes, Trainer, TrainerSettings, metrics, rnn_models
+from mltrainer import (ReportTypes, Trainer, TrainerSettings, metrics,
+                       rnn_models)
 from mltrainer.preprocessors import PaddedPreprocessor
 from ray import tune
 from ray.tune import CLIReporter
-from ray.tune.search.hyperopt import HyperOptSearch
 from ray.tune.schedulers import AsyncHyperBandScheduler
+from ray.tune.search.hyperopt import HyperOptSearch
 
 NUM_SAMPLES = 50
 MAX_EPOCHS = 10
