@@ -35,8 +35,22 @@ If you are on a VM, first check your available space with
 df -h
 ```
 
-If you have less than 7GB of space, free up some space. Probably you need to remove a `.venv` !
-You can check size with
+If your disk is full, likely candidates are the `.venv` folders of your projects, or the `.cache` folder in your home directory, or specifically the uv cache.
+
+1. clean up `.venv` folders by cd-ing into the project folder and running
+
+```bash
+rm -rf .venv
+```
+
+2. clean up the uv cache folder by running
+
+```bash
+uv cache clean
+```
+
+If you have less than 7GB of space, you really need to free up some space.
+You can check size of (sub)folders with, eg cd to `~/.cache` and run
 
 ```bash
 du -sh *
@@ -51,7 +65,7 @@ sudo apt install git-lfs
 If you have sufficient space, do this:
 1. clone the repo
 2. Run `git lfs pull` to get the datafiles
-3. create your own private repo on github, copy your-repo-url
+3. create your own repo on github, copy your-repo-url
 4. in the cloned repo, change the remote url with `git remote set-url origin <your-repo-url>` such that you can push to your-repo-url
 5. use the `pyproject.toml` to install the dependencies.
 
