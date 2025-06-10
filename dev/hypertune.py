@@ -95,6 +95,10 @@ if __name__ == "__main__":
         data_dir.mkdir(parents=True)
         logger.info(f"Created {data_dir}")
     tune_dir = Path("logs/ray").resolve()
+
+    # this example uses BOTH a search algorithm AND a scheduler.
+    # Consider for yourself what the impact of this is,
+    # and if you might want to change this (see lesson 4)
     search = HyperOptSearch()
     scheduler = AsyncHyperBandScheduler(
         time_attr="training_iteration",
