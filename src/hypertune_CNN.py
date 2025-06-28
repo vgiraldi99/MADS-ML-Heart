@@ -17,12 +17,13 @@ from ray.tune import CLIReporter
 from ray.tune.schedulers import AsyncHyperBandScheduler
 from ray.tune.search.hyperopt import HyperOptSearch
 
-NUM_SAMPLES = 5
+NUM_SAMPLES = 10
 MAX_EPOCHS = 5
-DATA_SET = 'ptb'
+DATA_SET = 'arrhythmia'
+CONCURRENT_TRIALS = 10
 
 
-def train(config: Dict):
+def train(settings: Dict):
     """
     The train function should receive a config file, which is a Dict
     ray will modify the values inside the config before it is passed to the train
@@ -30,9 +31,10 @@ def train(config: Dict):
     """
     from src import datasets, metrics
     
-
-    data_dir = Path('../data')
-    configfile = Path("config.toml")
+    # Use absolute paths so Ray workers can find the files
+    script_dir = Path(__file__).parent  # Directory where this script is located
+    data_dir = script_dir.parent / 'data'  # Go up one level to find data folder
+    configfile = script_dir / "config.toml"  # Config file in same dir as script
 
     with configfile.open('rb') as f:
         config = tomllib.load(f)
@@ -57,7 +59,7 @@ def train(config: Dict):
     accuracy = metrics.Accuracy()
     recall = metrics.Recall('macro')
     
-    modelconfig = models.CNNSettings(**config)
+    modelconfig = models.CNNSettings(**settings)
     model = models.ConvBlocks(modelconfig)
 
 
@@ -65,10 +67,10 @@ def train(config: Dict):
         epochs=MAX_EPOCHS,
         metrics=[accuracy, recall],
         logdir="logs/heart2D",
-        train_steps=len(trainstreamer) // 5,  # type: ignore
-        valid_steps=len(teststreamer) // 5,  # type: ignore
+        train_steps=len(trainstreamer) // 15,  # type: ignore
+        valid_steps=len(teststreamer) // 15,  # type: ignore
         reporttypes=[ReportTypes.RAY, ReportTypes.TENSORBOARD, ReportTypes.MLFLOW],
-        scheduler_kwargs={"factor": 0.5, "patience": 5},
+        scheduler_kwargs={"factor": 0.1, "patience": 5},
         earlystop_kwargs=None,
     )
 
@@ -114,22 +116,25 @@ if __name__ == "__main__":
     # and if you might want to change this (see lesson 4)
     search = HyperOptSearch()
     scheduler = AsyncHyperBandScheduler(
-        time_attr="training_iteration",
-        grace_period=1,
-        reduction_factor=3,
-        max_t=MAX_EPOCHS,
+        time_attr="training_iteration",  # Stop based on epochs
+        grace_period=3,      # Let each trial run for at least 3 epochs before considering stopping
+        reduction_factor=3,  # Keep top 1/3 of trials, stop the rest
+        max_t=MAX_EPOCHS,   # Maximum epochs any trial can run
     )
-
+    valid_hidden_sizes = [i for i in range(8, 300) if i % 8 == 0]
     config = {
-        "input_size": 3,
-        "output_size": 20,
-        "hidden_size": tune.randint(16, 128),
-        "dropout": tune.uniform(0.0, 0.3),
-        "num_layers": tune.randint(2, 5),
+        "matrix_shape" : (16, 12), #  Shape of the insert matrix
+        "in_channels" : 1,
+        "hidden_size" : tune.choice(valid_hidden_sizes), 
+        "num_layers" : tune.randint(1, 5), #  Amount of convolutional layers to add
+        "num_classes" : 5, #  Amount of end classes to be determined 
+        "attention" : True,
+        "dense_activation" : tune.choice(['gelu', 'relu', 'leaky_relu'])
     }
 
     reporter = CLIReporter()
     reporter.add_metric_column("Accuracy")
+    reporter.add_metric_column("Recall_macro", "Recall")
 
     analysis = tune.run(
         train,
@@ -141,7 +146,13 @@ if __name__ == "__main__":
         num_samples=NUM_SAMPLES,
         search_alg=search,
         scheduler=scheduler,
-        verbose=1,
+        max_concurrent_trials=CONCURRENT_TRIALS,
+        resources_per_trial={"cpu": 2},
+        verbose=0,
     )
 
     ray.shutdown()
+
+"""
+
+"""
