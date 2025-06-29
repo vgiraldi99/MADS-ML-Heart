@@ -17,8 +17,8 @@ from ray.tune import CLIReporter
 from ray.tune.schedulers import AsyncHyperBandScheduler
 from ray.tune.search.hyperopt import HyperOptSearch
 
-NUM_SAMPLES = 10
-MAX_EPOCHS = 5
+NUM_SAMPLES = 60
+MAX_EPOCHS = 15
 DATA_SET = 'arrhythmia'
 CONCURRENT_TRIALS = 8
 CLASS_WEIGHTS = torch.tensor([ #Using class weights to counter inbalance in the data. Using the inverse frequency method (1/%)
@@ -154,8 +154,8 @@ if __name__ == "__main__":
     analysis = tune.run(
         train,
         config=config,
-        metric="test_loss",
-        mode="min",
+        metric="Recall_macro", #Changed to Recall
+        mode="max", # Train the maximum recall
         progress_reporter=reporter,
         storage_path=str(tune_dir),
         num_samples=NUM_SAMPLES,
