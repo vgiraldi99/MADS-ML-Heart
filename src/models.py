@@ -156,7 +156,6 @@ class ConvBlocks(nn.Module):
             if i % 2 == 0:
                 num_maxpools += 1
                 self.convolutions.append(nn.MaxPool2d(config.pool_size, config.pool_size))
-                nn.MultiheadAttention
                 if config.attention: self.convolutions.append(MultiHeadSelfAtt(config.hidden_size))
         
         # Calculates the endsize by dividing the shape size by the amount of poolsize decrease per maxpool
